@@ -1,5 +1,6 @@
 *.log
 *.pyc
+*.csv
 .DS_Store
 .idea/
 .Rhistory

@@ -1,8 +1,9 @@
 library(shiny)
 
 CMD <- "/home/shu/anaconda2/bin/scrapy"
-CRAWL <- "crawl physics"
+CRAWL <- "crawl get_email"
 
+system2(command = CMD, args = "bench")
 
 function(input, output, session) {
   observeEvent(input$crawl, {

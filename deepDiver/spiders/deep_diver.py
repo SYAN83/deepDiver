@@ -3,7 +3,7 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.exceptions import CloseSpider
 import logging
 from scrapy.utils.log import configure_logging
-
+from deepDiver.items import EmailItem
 
 class DeepSpider(CrawlSpider):
 
@@ -26,11 +26,19 @@ class DeepSpider(CrawlSpider):
     def parse_items(self, response):
         if response.status / 10 == 20:
             self.logger.info(msg=u'ON SUCCESS: {0}'.format(response.url,))
+
         if response.status / 10 == 40:
-            pass
             self.logger.error(msg=u'CLIENT ERROR: {0}'.format(response.url, ))
         # print response.url
         self.count -= 1
         if self.count == 0:
             # self.logfile.close()
             raise CloseSpider('bandwidth_exceeded')
+
+        mailto = response.xpath('//a[contains(@href, "mailto:")]/@href').extract()
+
+        email_item = EmailItem()
+        email_item['page_url'] = response.url
+        email_item['email_cnt'] = len(mailto)
+
+        return email_item
