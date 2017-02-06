@@ -8,9 +8,9 @@ from deepDiver.items import EmailItem
 class DeepSpider(CrawlSpider):
 
     name = 'get_email'
-    allowed_domains = ['harvard.edu']
-    start_urls = ['http://www.harvard.edu']
-    count = 10
+    allowed_domains = ['physics.sc.edu']
+    start_urls = ['http://www.physics.sc.edu']
+    count = 1e4
     rules = (
         Rule(LinkExtractor(allow=(), deny=('robots.txt',)), callback='parse_items', follow=True),
     )
